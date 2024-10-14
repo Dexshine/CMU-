@@ -14,6 +14,7 @@ const SESSION_SECRET = process.env.SESSION_SECRET;
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const SERVICE_ACCOUNT_KEY = JSON.parse(process.env.SERVICE_ACCOUNT_KEY);
+const STORAGE_BUCKET = process.env.STORAGE_BUCKET;
 
 module.exports = {
   MONGO_URL,
@@ -22,4 +23,5 @@ module.exports = {
   SESSION_SECRET,
   JWT_SECRET,
   SERVICE_ACCOUNT_KEY,
+  STORAGE_BUCKET,
 };
