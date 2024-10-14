@@ -40,7 +40,7 @@ exports.showBy = async (req, res) => {
       query.status = status;
     }
 
-    const requests = await Request.find(query);
+    const requests = await Request.find(query).populate("event");
     if (requests.length === 0) {
       return res.status(200).send({
         message: "Request not found",

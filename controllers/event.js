@@ -197,46 +197,28 @@ exports.getEventsByCreatedBy = async (req, res) => {
 };
 
 exports.updateEventById = async (req, res) => {
-  upload.array("images", 5)(req, res, async (err) => {
-    if (err) {
-      return res.status(400).send({
-        message: "Error uploading images",
-        error: err.message,
+  try {
+    const event = await Event.findOneAndUpdate(
+      { id: req.params.id },
+      req.body,
+      { new: true, runValidators: true }
+    );
+
+    if (!event) {
+      return res.status(404).send({
+        message: "Event not found",
       });
     }
-
-    try {
-      // If images are uploaded, handle upload to Firebase
-      let imageUrls = req.body.images || [];
-      if (req.files.length > 0) {
-        imageUrls = await uploadImagesToFirebase(req.files);
-      }
-
-      const event = await Event.findOneAndUpdate(
-        { id: req.params.id },
-        {
-          ...req.body,
-          images: imageUrls, // Update with new or existing image URLs
-        },
-        { new: true, runValidators: true }
-      );
-
-      if (!event) {
-        return res.status(404).send({
-          message: "Event not found",
-        });
-      }
-      res.status(200).send({
-        message: "Event updated successfully",
-        data: event,
-      });
-    } catch (error) {
-      res.status(400).send({
-        message: "Error updating event",
-        error: error.message,
-      });
-    }
-  });
+    res.status(200).send({
+      message: "Event updated successfully",
+      data: event,
+    });
+  } catch (error) {
+    res.status(400).send({
+      message: "Error updating event",
+      error: error.message,
+    });
+  }
 };
 
 // Delete an event by ID
