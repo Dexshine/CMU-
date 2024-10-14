@@ -5,22 +5,43 @@ const bucket = require("./../config/firebase"); // Import your configured Fireba
 const User = require("../models/user");
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Types;
+const sharp = require("sharp");
 
 // Configure multer for image file handling
 const storage = multer.memoryStorage();
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB
-  fileFilter: (req, file, cb) => {
+  limits: { fileSize: 3 * 1024 * 1024 }, // Limit file size to 3MB
+  fileFilter: async (req, file, cb) => {
     // Accept only image files
     const fileTypes = /jpeg|jpg|png/;
     const extname = fileTypes.test(file.originalname.toLowerCase());
     const mimeType = fileTypes.test(file.mimetype);
-    if (mimeType && extname) {
-      return cb(null, true);
-    } else {
-      cb(new Error("Only image files are allowed!"));
+    if (!mimeType || !extname) {
+      return cb(new Error("Only image files are allowed!"));
+    }
+
+    try {
+      // Read the image metadata
+      const image = sharp(file.buffer);
+      const metadata = await image.metadata();
+
+      // Check image dimensions
+      const maxWidth = 1920; // Set your desired max width
+      const maxHeight = 1080; // Set your desired max height
+
+      if (metadata.width > maxWidth || metadata.height > maxHeight) {
+        return cb(
+          new Error(
+            `Image dimensions must not exceed ${maxWidth}x${maxHeight} pixels.`
+          )
+        );
+      }
+
+      cb(null, true);
+    } catch (error) {
+      cb(new Error("Error processing image. Please try again."));
     }
   },
 });
@@ -244,3 +265,4 @@ exports.deleteEventById = async (req, res) => {
     });
   }
 };
+
