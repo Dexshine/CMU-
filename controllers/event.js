@@ -3,6 +3,8 @@ const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
 const bucket = require("./../config/firebase"); // Import your configured Firebase bucket
 const User = require("../models/user");
+const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Types;
 
 // Configure multer for image file handling
 const storage = multer.memoryStorage();
@@ -162,7 +164,38 @@ exports.getEventById = async (req, res) => {
   }
 };
 
-// Update an event by ID with image upload
+exports.getEventsByCreatedBy = async (req, res) => {
+  try {
+    console.log("---->getEventsByCreatedBy", req.params.id);
+
+    let events = await Event.find();
+
+    events = events.filter((event) => {
+      return event.createdBy.toString() === req.params.id;
+    });
+
+    const mapImages = events.map((event) => {
+      return {
+        ...event._doc,
+        images: event.images.map((image) => {
+          return generateImageUrl(image);
+        }),
+      };
+    });
+
+    res.status(200).send({
+      message: "Events retrieved successfully",
+      data: mapImages,
+      // events,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error retrieving events",
+      error: error.message,
+    });
+  }
+};
+
 exports.updateEventById = async (req, res) => {
   upload.array("images", 5)(req, res, async (err) => {
     if (err) {
