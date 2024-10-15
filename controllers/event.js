@@ -5,7 +5,6 @@ const bucket = require("./../config/firebase"); // Import your configured Fireba
 const User = require("../models/user");
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Types;
-const sharp = require("sharp");
 
 // Configure multer for image file handling
 const storage = multer.memoryStorage();
@@ -21,7 +20,7 @@ const upload = multer({
     if (mimeType && extname) {
       return cb(null, true);
     } else {
-      cb(new Error("Only jpeg/jpg/png files are allowed!"));
+      cb(new Error("Only image files are allowed!"));
     }
   },
 });
