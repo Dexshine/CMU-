@@ -13,7 +13,7 @@ This is an Express.js application for event matching.
 - Google Cloud account
 - Google firebase account
 
-# MongoDB Setup
+### MongoDB Setup
 
 1. Create a MongoDB Atlas account
 2. Create a new cluster
@@ -23,7 +23,7 @@ This is an Express.js application for event matching.
 - Password
 - Cluster address
 
-# CMU OAuth Setup
+### CMU OAuth Setup
 
 1. Take a look of how to implement it from example code.
 
@@ -31,14 +31,14 @@ This is an Express.js application for event matching.
 
 2. Retrieve credential from CPE CMU Department
 
-# Google OAuth
+### Google OAuth
 
 1. Go to Google Cloud Console
 2. Create new OAuth 2.0 credentials
 3. Configure authorized redirect URIs
 4. Copy the client ID and client secret
 
-# Firebase Setup
+### Firebase Setup
 
 1. Create a new Firebase project
 2. Generate a new service account key:
@@ -53,12 +53,9 @@ This is an Express.js application for event matching.
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/event-matching.git
+   git clone https://github.com/Dexshine/CMU-EventFinding-API.git
    ```
 2. Navigate to the project directory:
-   ```sh
-   cd event-matching
-   ```
 3. copy .env.example and rename it to .env
 4. fill in credential in .env file
 5. Install the dependencies:
