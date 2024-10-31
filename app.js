@@ -13,7 +13,7 @@ const indexRouter = require("./routes/index");
 const eventsRouter = require("./routes/event");
 const authRouter = require("./routes/auth");
 const usersRouter = require("./routes/user");
-const requestRouter = require("./routes/request");
+const reviewRouter = require("./routes/review");
 const cmuAuthRouter = require("./routes/cmu-auth");
 
 const app = express();
@@ -53,7 +53,7 @@ app.use("/event", eventsRouter);
 app.use("/auth", authRouter);
 app.use("/cmu-auth", cmuAuthRouter);
 app.use("/user", usersRouter);
-app.use("/request", requestRouter);
+
+app.use("/review", reviewRouter);
 
 module.exports = app;
-
