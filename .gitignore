@@ -4,7 +4,6 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-package-lock.json
 
 # Runtime data
 pids
@@ -56,11 +55,12 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+# .env
 
 # next.js build output
 .next
 
 .zip
 cmu-event-finding-4f64c-firebase-adminsdk-06f17-f9f250e9c7.json
-dump
+.env
+temp.js
