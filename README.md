@@ -1,6 +1,6 @@
-# Event Matching Service
+# Project Matching Management Platform
 
-This is an Express.js application for event matching.
+This is an Express.js application for event matching in CMU.
 
 ## Getting Started
 
