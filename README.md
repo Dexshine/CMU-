@@ -88,6 +88,30 @@ The application will be available at `http://localhost:8000`.
 - `start`: Starts the application using Node.js.
 - `dev`: Starts the application using `nodemon` for automatic restarts during development.
 
+## Heroku Deployment Steps
+
+1. Configure Production Environment
+
+- Create a new .env.production file
+- Update all URLs to use your production domain
+- Update OAuth redirect URLs in your OAuth providers' dashboards
+
+2. Deployment from Command Line
+
+```sh
+# Login to Heroku
+heroku login
+
+# Create new Heroku app
+heroku create your-app-name
+
+# Set environment variables
+heroku config:set $(cat .env.production)
+
+# Deploy
+git push heroku main
+```
+
 ## License
 
 This project is licensed under the MIT License.
